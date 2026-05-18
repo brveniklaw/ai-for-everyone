@@ -22,7 +22,7 @@ const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY") ?? "", {
 
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL") ?? "",
-  Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "" // Service role bypasses RLS
+  Deno.env.get("SB_SERVICE_ROLE_KEY") ?? "" // Service role bypasses RLS
 );
 
 serve(async (req: Request) => {
