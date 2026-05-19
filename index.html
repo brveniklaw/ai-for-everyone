@@ -5,21 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI for Everyone — 30-Day Training Program</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-
+ 
 <!-- ── CONFIGURATION — replace these values ────────────────────────── -->
 <script>
- const CONFIG = {
-  SUPABASE_URL:        'https://iqawyxoajwzhqqqgisgi.supabase.co',
-  SUPABASE_ANON_KEY:   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlxYXd5eG9hand6aHFxcWdpc2dpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxMjE4OTQsImV4cCI6MjA5NDY5Nzg5NH0.QmCQRz9Bbiu7dzn5FUEWnOhxAznJLrWrSxDip0muL5k',
-  STRIPE_PAYMENT_LINK: 'https://buy.stripe.com/YOUR_PAYMENT_LINK',
-  WIX_MARKETING_URL:   'https://www.intexiau.com',
-  APP_URL:             'https://brveniklaw.github.io/ai-for-everyone/',
-};
+  const CONFIG = {
+    SUPABASE_URL:        'https://iqawyxoajwzhqqqgisgi.supabase.co',
+    SUPABASE_ANON_KEY:   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlxYXd5eG9hand6aHFxcWdpc2dpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxMjE4OTQsImV4cCI6MjA5NDY5Nzg5NH0.QmCQRz9Bbiu7dzn5FUEWnOhxAznJLrWrSxDip0muL5k',
+    STRIPE_PAYMENT_LINK: 'https://buy.stripe.com/YOUR_PAYMENT_LINK',
+    WIX_MARKETING_URL:   'https://www.intexiau.com',
+    APP_URL:             'https://brveniklaw.github.io/ai-for-everyone/',
+  };
 </script>
-
+ 
 <!-- Supabase JS SDK via CDN -->
-<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-
+<script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+ 
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -32,7 +32,7 @@
   --font:'Plus Jakarta Sans',sans-serif;--mono:'JetBrains Mono',monospace;
 }
 body{font-family:var(--font);background:#EEF2FF;color:var(--gray-900);min-height:100vh}
-
+ 
 /* ── AUTH SCREENS ─────────────────────────────────── */
 .auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem;background:#070D1F}
 .auth-card{background:#fff;border-radius:24px;padding:2.5rem 2rem;width:100%;max-width:420px;position:relative}
@@ -58,7 +58,7 @@ body{font-family:var(--font);background:#EEF2FF;color:var(--gray-900);min-height
 .auth-msg.success{background:var(--e50);color:var(--e800);display:block;border:1px solid var(--e200)}
 .auth-footer{text-align:center;font-size:12px;color:var(--gray-400);margin-top:1.25rem}
 .auth-footer a{color:var(--b500);text-decoration:none;font-weight:600}
-
+ 
 /* ── PAYWALL ──────────────────────────────────────── */
 .paywall-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem;background:#070D1F}
 .paywall-card{background:#fff;border-radius:24px;padding:2.5rem 2rem;width:100%;max-width:480px;text-align:center}
@@ -73,13 +73,13 @@ body{font-family:var(--font);background:#EEF2FF;color:var(--gray-900);min-height
 .paywall-cta:hover{background:var(--e800);transform:translateY(-1px)}
 .paywall-signout{background:none;border:1.5px solid var(--gray-200);color:var(--gray-500);padding:.6rem 1.25rem;border-radius:100px;font-family:var(--font);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s}
 .paywall-signout:hover{border-color:var(--gray-400);color:var(--gray-700)}
-
+ 
 /* ── LOADING ──────────────────────────────────────── */
 .loader-wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;background:#070D1F}
 .loader-ring{width:44px;height:44px;border:3px solid rgba(255,255,255,.1);border-top-color:var(--e400);border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .loader-text{color:rgba(255,255,255,.4);font-size:13px;font-weight:500}
-
+ 
 /* ── USER NAV BAR ─────────────────────────────────── */
 .topnav{background:#fff;border-bottom:1px solid var(--gray-200);padding:.6rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
 .topnav-brand{font-size:15px;font-weight:800;color:var(--gray-900)}
@@ -88,7 +88,7 @@ body{font-family:var(--font);background:#EEF2FF;color:var(--gray-900);min-height
 .topnav-email{font-size:12px;color:var(--gray-500);max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .signout-btn{background:none;border:1.5px solid var(--gray-200);color:var(--gray-500);padding:4px 10px;border-radius:8px;font-family:var(--font);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s}
 .signout-btn:hover{border-color:var(--r400);color:var(--r500)}
-
+ 
 /* ── MAIN APP ─────────────────────────────────────── */
 .wrap{max-width:980px;margin:0 auto;padding:2rem 1.5rem 5rem}
 .hero{background:#070D1F;color:#fff;border-radius:24px;padding:3rem 2.5rem 2.5rem;margin-bottom:1.25rem;position:relative;overflow:hidden}
@@ -104,7 +104,7 @@ body{font-family:var(--font);background:#EEF2FF;color:var(--gray-900);min-height
 .hst .hn{font-size:2.1rem;font-weight:800;letter-spacing:-.03em}
 .hst .hl{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);margin-top:3px}
 .hs1 .hn{color:#93C5FD}.hs2 .hn{color:#C4B5FD}.hs3 .hn{color:#FCA5A5}.hs4 .hn{color:#6EE7B7}
-
+ 
 .prog-card{background:#fff;border-radius:16px;padding:1.15rem 1.5rem;margin-bottom:1.25rem;border:1px solid var(--gray-200);display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap}
 .prog-left{min-width:120px}
 .prog-left-title{font-size:11px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.06em}
@@ -119,7 +119,7 @@ body{font-family:var(--font);background:#EEF2FF;color:var(--gray-900);min-height
 .pwb-lbl{font-size:9px;font-weight:700;color:var(--gray-400);text-align:center;margin-top:3px;letter-spacing:.04em}
 .pb1 .pwb-fill{background:var(--b500)}.pb2 .pwb-fill{background:var(--v500)}.pb3 .pwb-fill{background:var(--o500)}.pb4 .pwb-fill{background:var(--e500)}
 .prog-pct{font-size:1.15rem;font-weight:800;color:var(--e600);min-width:44px;text-align:right}
-
+ 
 .week-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-bottom:1.25rem}
 .wtab{border:2px solid;border-radius:16px;padding:.9rem 1rem 1rem;cursor:pointer;text-align:left;transition:all .18s;background:#fff;font-family:var(--font)}
 .wtab-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
@@ -143,11 +143,11 @@ body{font-family:var(--font);background:#EEF2FF;color:var(--gray-900);min-height
 .wtab.w4:hover,.wtab.w4.active{background:var(--e500);border-color:var(--e500);color:#fff}
 .wtab.w4:hover .wtab-wk,.wtab.w4.active .wtab-wk{color:rgba(255,255,255,.8)}
 .wtab.w4:hover .wtab-bdg,.wtab.w4.active .wtab-bdg{background:rgba(255,255,255,.2);color:#fff}
-
+ 
 .week-hdr{margin-bottom:1rem}
 .week-hdr h2{font-size:1.1rem;font-weight:700;color:var(--gray-800)}
 .week-hdr p{font-size:.875rem;color:var(--gray-500);margin-top:3px}
-
+ 
 .days-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:.75rem;margin-bottom:1.25rem}
 .day-card{border-radius:16px;padding:1rem .9rem .9rem;cursor:pointer;transition:all .18s;border:2px solid transparent;position:relative;user-select:none}
 .card-icon{font-size:20px;margin-bottom:7px;display:block}
@@ -167,13 +167,13 @@ body{font-family:var(--font);background:#EEF2FF;color:var(--gray-900);min-height
 .w3 .day-card:hover,.w3 .day-card.selected{background:var(--o100);border-color:var(--o400)}
 .w4 .day-card{background:var(--e50);color:var(--e800)}.w4 .day-card .ctag{background:var(--e100);color:var(--e600)}
 .w4 .day-card:hover,.w4 .day-card.selected{background:var(--e100);border-color:var(--e400)}
-
+ 
 .day-detail{border-radius:20px;padding:2rem;margin-bottom:1.5rem;border:1.5px solid transparent;display:none}
 .day-detail.show{display:block;animation:fadeUp .22s ease}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .day-detail.w1{background:#fff;border-color:var(--b200)}.day-detail.w2{background:#fff;border-color:var(--v200)}
 .day-detail.w3{background:#fff;border-color:var(--o200)}.day-detail.w4{background:#fff;border-color:var(--e200)}
-
+ 
 .det-topbar{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap}
 .det-meta{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:7px}
 .det-badge{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;padding:3px 10px;border-radius:100px}
@@ -189,7 +189,7 @@ body{font-family:var(--font);background:#EEF2FF;color:var(--gray-900);min-height
 .w2 .done-btn{border-color:var(--v400);color:var(--v500)}.w2 .done-btn:hover,.w2 .done-btn.done{background:var(--v500);border-color:var(--v500);color:#fff}
 .w3 .done-btn{border-color:var(--o400);color:var(--o500)}.w3 .done-btn:hover,.w3 .done-btn.done{background:var(--o500);border-color:var(--o500);color:#fff}
 .w4 .done-btn{border-color:var(--e400);color:var(--e500)}.w4 .done-btn:hover,.w4 .done-btn.done{background:var(--e500);border-color:var(--e500);color:#fff}
-
+ 
 .det-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
 .dblock{background:var(--gray-50);border-radius:12px;padding:1rem 1.1rem}
 .dblock h4{font-size:10px;text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:.65rem}
@@ -197,7 +197,7 @@ body{font-family:var(--font);background:#EEF2FF;color:var(--gray-900);min-height
 .dblock ul{padding-left:1rem}.dblock li{font-size:13px;color:var(--gray-700);line-height:1.6;margin-bottom:3px}
 .dblock p{font-size:13px;color:var(--gray-700);line-height:1.65}
 .ex-block{margin-bottom:1rem}
-
+ 
 .tip-block{border-radius:0 12px 12px 0;padding:.9rem 1.15rem;margin-bottom:1rem}
 .w1 .tip-block{background:var(--b50);border-left:4px solid var(--b400)}
 .w2 .tip-block{background:var(--v50);border-left:4px solid var(--v400)}
@@ -206,7 +206,7 @@ body{font-family:var(--font);background:#EEF2FF;color:var(--gray-900);min-height
 .tip-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;margin-bottom:5px}
 .w1 .tip-label{color:var(--b500)}.w2 .tip-label{color:var(--v500)}.w3 .tip-label{color:var(--o500)}.w4 .tip-label{color:var(--e500)}
 .tip-text{font-size:13px;color:var(--gray-700);line-height:1.65}
-
+ 
 .prompt-block{border-radius:12px;padding:1rem 1.2rem;margin-bottom:1rem}
 .w1 .prompt-block{background:var(--b50);border:1.5px solid var(--b200)}
 .w2 .prompt-block{background:var(--v50);border:1.5px solid var(--v200)}
@@ -221,7 +221,7 @@ body{font-family:var(--font);background:#EEF2FF;color:var(--gray-900);min-height
 .w3 .copy-btn{background:var(--o100);color:var(--o600)}.w3 .copy-btn:hover{background:var(--o500);color:#fff}
 .w4 .copy-btn{background:var(--e100);color:var(--e600)}.w4 .copy-btn:hover{background:var(--e500);color:#fff}
 .prompt-text{font-family:var(--mono);font-size:12.5px;color:var(--gray-800);line-height:1.65}
-
+ 
 .det-footer{display:flex;align-items:center;gap:.75rem;padding-top:1rem;border-top:1px solid var(--gray-200);flex-wrap:wrap}
 .res-pill{display:inline-flex;align-items:center;gap:5px;background:var(--gray-100);color:var(--gray-600);padding:5px 12px;border-radius:100px;font-size:12px;font-weight:500;flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 .nav-row{display:flex;align-items:center;gap:8px;flex-shrink:0}
@@ -230,7 +230,7 @@ body{font-family:var(--font);background:#EEF2FF;color:var(--gray-900);min-height
 .nav-btn:disabled{opacity:.3;cursor:not-allowed}
 .close-btn{background:none;border:1.5px solid var(--gray-200);color:var(--gray-500);cursor:pointer;font-size:12px;padding:5px 10px;font-family:var(--font);border-radius:100px;transition:all .15s}
 .close-btn:hover{color:var(--gray-900);border-color:var(--gray-400)}
-
+ 
 .cert{background:#070D1F;border-radius:24px;padding:3rem 2rem;text-align:center;margin-top:2rem;color:#fff;position:relative;overflow:hidden}
 .cert::before{content:'';position:absolute;width:220px;height:220px;background:#059669;opacity:.08;border-radius:50%;top:-60px;right:-50px}
 .cert::after{content:'';position:absolute;width:180px;height:180px;background:#7C3AED;opacity:.1;border-radius:50%;bottom:-60px;left:-40px}
@@ -239,12 +239,12 @@ body{font-family:var(--font);background:#EEF2FF;color:var(--gray-900);min-height
 .cert p{font-size:.9rem;color:rgba(255,255,255,.55);margin:0 auto 1.5rem;max-width:420px;line-height:1.65;position:relative;z-index:1}
 .cert-btn{display:inline-block;background:var(--e600);color:#fff;font-size:14px;font-weight:700;padding:.75rem 2.25rem;border-radius:100px;border:none;cursor:pointer;transition:all .18s;font-family:var(--font);position:relative;z-index:1}
 .cert-btn:hover{background:var(--e800);transform:translateY(-1px)}
-
+ 
 /* ── TOAST ────────────────────────────────────────── */
 .toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--gray-900);color:#fff;padding:.65rem 1.25rem;border-radius:100px;font-size:13px;font-weight:600;opacity:0;transition:all .25s;pointer-events:none;z-index:999;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast.success{background:var(--e600)}.toast.error{background:var(--r600)}
-
+ 
 @media(max-width:640px){
   .week-tabs{grid-template-columns:1fr 1fr}
   .det-grid{grid-template-columns:1fr}
@@ -255,26 +255,26 @@ body{font-family:var(--font);background:#EEF2FF;color:var(--gray-900);min-height
 </style>
 </head>
 <body>
-
+ 
 <!-- ── LOADING SCREEN ─────────────────────────────────────────────────── -->
 <div id="screenLoader" class="loader-wrap">
   <div class="loader-ring"></div>
   <div class="loader-text">Loading your program...</div>
 </div>
-
+ 
 <!-- ── AUTH SCREEN ────────────────────────────────────────────────────── -->
 <div id="screenAuth" class="auth-wrap" style="display:none">
   <div class="auth-card">
     <div class="auth-logo">AI for <span>Everyone</span></div>
     <div class="auth-sub">Sign in to access your 30-day training program and sync your progress.</div>
-
+ 
     <div class="auth-tabs">
       <button class="auth-tab active" id="tabSignIn" onclick="switchAuthTab('signin')">Sign In</button>
       <button class="auth-tab" id="tabSignUp" onclick="switchAuthTab('signup')">Create Account</button>
     </div>
-
+ 
     <div id="authMsg" class="auth-msg"></div>
-
+ 
     <!-- Sign In Form -->
     <div id="formSignIn">
       <div class="form-group">
@@ -289,7 +289,7 @@ body{font-family:var(--font);background:#EEF2FF;color:var(--gray-900);min-height
       <div class="auth-divider">or</div>
       <button class="auth-btn" style="background:var(--gray-100);color:var(--gray-700);margin-top:0" onclick="doMagicLink()">&#9993; Send Magic Link</button>
     </div>
-
+ 
     <!-- Sign Up Form -->
     <div id="formSignUp" style="display:none">
       <div class="form-group">
@@ -306,14 +306,14 @@ body{font-family:var(--font);background:#EEF2FF;color:var(--gray-900);min-height
       </div>
       <button class="auth-btn" id="signUpBtn" onclick="doSignUp()">Create Account</button>
     </div>
-
+ 
     <div class="auth-footer">
       <a href="#" onclick="forgotPassword()">Forgot password?</a> &nbsp;·&nbsp;
       <a href="javascript:void(0)" onclick="window.location.href=CONFIG.WIX_MARKETING_URL">Back to website</a>
     </div>
   </div>
 </div>
-
+ 
 <!-- ── PAYWALL SCREEN ─────────────────────────────────────────────────── -->
 <div id="screenPaywall" class="paywall-wrap" style="display:none">
   <div class="paywall-card">
@@ -335,10 +335,10 @@ body{font-family:var(--font);background:#EEF2FF;color:var(--gray-900);min-height
     <div style="font-size:11px;color:var(--gray-400)">Already paid? <a href="#" style="color:var(--b500);text-decoration:none;font-weight:600" onclick="recheckAccess()">Click to verify your access</a></div>
   </div>
 </div>
-
+ 
 <!-- ── MAIN APP ────────────────────────────────────────────────────────── -->
 <div id="screenApp" style="display:none">
-
+ 
   <nav class="topnav">
     <div class="topnav-brand">AI for <span>Everyone</span></div>
     <div class="topnav-right">
@@ -346,7 +346,7 @@ body{font-family:var(--font);background:#EEF2FF;color:var(--gray-900);min-height
       <button class="signout-btn" onclick="doSignOut()">Sign out</button>
     </div>
   </nav>
-
+ 
   <div class="wrap">
     <div class="hero">
       <div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div>
@@ -360,7 +360,7 @@ body{font-family:var(--font);background:#EEF2FF;color:var(--gray-900);min-height
         <div class="hst hs4"><div class="hn">0</div><div class="hl">Tech skills needed</div></div>
       </div>
     </div>
-
+ 
     <div class="prog-card">
       <div class="prog-left">
         <div class="prog-left-title">Your progress</div>
@@ -377,7 +377,7 @@ body{font-family:var(--font);background:#EEF2FF;color:var(--gray-900);min-height
       </div>
       <div class="prog-pct" id="pbarPct">0%</div>
     </div>
-
+ 
     <div class="week-tabs">
       <button class="wtab w1 active" onclick="showWeek(1)">
         <div class="wtab-top"><span class="wtab-wk">Week 1</span><span class="wtab-bdg" id="wb1">0/7</span></div>
@@ -396,10 +396,10 @@ body{font-family:var(--font);background:#EEF2FF;color:var(--gray-900);min-height
         <div class="wtab-name">Mastery &amp; Future</div><div class="wtab-range">Days 22 – 30</div>
       </button>
     </div>
-
+ 
     <div id="weekContent"></div>
     <div class="day-detail" id="dayDetail"></div>
-
+ 
     <div class="cert">
       <span class="cert-ico">&#127941;</span>
       <h2>Ready to earn your certificate?</h2>
@@ -408,17 +408,17 @@ body{font-family:var(--font);background:#EEF2FF;color:var(--gray-900);min-height
     </div>
   </div>
 </div>
-
+ 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
-
+ 
 <script>
 // ─────────────────────────────────────────────────────────────────────────────
 // SUPABASE INIT
 // ─────────────────────────────────────────────────────────────────────────────
 const { createClient } = supabase;
 const sb = createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
-
+ 
 // ─────────────────────────────────────────────────────────────────────────────
 // PROGRAM DATA
 // ─────────────────────────────────────────────────────────────────────────────
@@ -642,7 +642,7 @@ prompt:'I\'ve just completed a 30-day AI training program and genuinely leveled 
 resource:'anthropic.com/news and ai.google/education — bookmark both right now to stay current on AI developments that matter.'}
 ]}
 ];
-
+ 
 // ─────────────────────────────────────────────────────────────────────────────
 // STATE
 // ─────────────────────────────────────────────────────────────────────────────
@@ -650,7 +650,7 @@ let currentUser = null;
 let currentWeek = 1;
 let selectedDay = null;
 let completedDays = [];
-
+ 
 // ─────────────────────────────────────────────────────────────────────────────
 // SCREEN MANAGEMENT
 // ─────────────────────────────────────────────────────────────────────────────
@@ -659,47 +659,68 @@ function showScreen(name) {
     document.getElementById(id).style.display = id === name ? '' : 'none';
   });
 }
-
+ 
 // ─────────────────────────────────────────────────────────────────────────────
 // BOOT — check auth state on load
 // ─────────────────────────────────────────────────────────────────────────────
 async function boot() {
   showScreen('screenLoader');
-
-  // Set Stripe payment link (append client_reference_id after auth)
-  document.getElementById('stripeLink').href = CONFIG.STRIPE_PAYMENT_LINK;
-
-  // Listen for auth changes
-  sb.auth.onAuthStateChange(async (event, session) => {
-    if (event === 'SIGNED_IN' && session) {
+ 
+  // Safety timeout — if Supabase never responds, show auth screen anyway
+  const bootTimeout = setTimeout(() => {
+    console.warn('Boot timeout — showing auth screen');
+    showScreen('screenAuth');
+  }, 6000);
+ 
+  try {
+    // Set Stripe payment link
+    document.getElementById('stripeLink').href = CONFIG.STRIPE_PAYMENT_LINK;
+ 
+    // Check Supabase is available
+    if (typeof supabase === 'undefined' || !window.supabase) {
+      console.error('Supabase SDK not loaded');
+      clearTimeout(bootTimeout);
+      showScreen('screenAuth');
+      return;
+    }
+ 
+    // Listen for auth changes
+    sb.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'SIGNED_IN' && session) {
+        currentUser = session.user;
+        await checkAccessAndLoad();
+      } else if (event === 'SIGNED_OUT') {
+        currentUser = null;
+        completedDays = [];
+        showScreen('screenAuth');
+      }
+    });
+ 
+    // Check existing session
+    const { data: { session } } = await sb.auth.getSession();
+    clearTimeout(bootTimeout);
+    if (session) {
       currentUser = session.user;
       await checkAccessAndLoad();
-    } else if (event === 'SIGNED_OUT') {
-      currentUser = null;
-      completedDays = [];
+    } else {
       showScreen('screenAuth');
     }
-  });
-
-  // Check existing session
-  const { data: { session } } = await sb.auth.getSession();
-  if (session) {
-    currentUser = session.user;
-    await checkAccessAndLoad();
-  } else {
+  } catch(err) {
+    console.error('Boot error:', err);
+    clearTimeout(bootTimeout);
     showScreen('screenAuth');
   }
 }
-
+ 
 async function checkAccessAndLoad() {
   showScreen('screenLoader');
-
+ 
   const { data: profile, error } = await sb
     .from('profiles')
     .select('is_paid, email, full_name')
     .eq('id', currentUser.id)
     .single();
-
+ 
   if (error || !profile || !profile.is_paid) {
     // Set Stripe link with email pre-fill
     const stripeUrl = new URL(CONFIG.STRIPE_PAYMENT_LINK);
@@ -709,7 +730,7 @@ async function checkAccessAndLoad() {
     showScreen('screenPaywall');
     return;
   }
-
+ 
   // Paid user — load progress and show app
   document.getElementById('navEmail').textContent = currentUser.email;
   await loadProgress();
@@ -717,12 +738,12 @@ async function checkAccessAndLoad() {
   renderWeek(currentWeek);
   updateProgress();
 }
-
+ 
 async function recheckAccess() {
   showToast('Checking your access...', 'default');
   await checkAccessAndLoad();
 }
-
+ 
 // ─────────────────────────────────────────────────────────────────────────────
 // AUTH FUNCTIONS
 // ─────────────────────────────────────────────────────────────────────────────
@@ -733,7 +754,7 @@ function switchAuthTab(tab) {
   document.getElementById('formSignUp').style.display = tab === 'signup' ? '' : 'none';
   clearAuthMsg();
 }
-
+ 
 function showAuthMsg(msg, type = 'error') {
   const el = document.getElementById('authMsg');
   el.textContent = msg;
@@ -744,15 +765,15 @@ function clearAuthMsg() {
   el.className = 'auth-msg';
   el.textContent = '';
 }
-
+ 
 async function doSignIn() {
   const email = document.getElementById('siEmail').value.trim();
   const pass  = document.getElementById('siPass').value;
   if (!email || !pass) { showAuthMsg('Please enter your email and password.'); return; }
-
+ 
   const btn = document.getElementById('signInBtn');
   btn.disabled = true; btn.textContent = 'Signing in...';
-
+ 
   const { error } = await sb.auth.signInWithPassword({ email, password: pass });
   if (error) {
     showAuthMsg(error.message === 'Invalid login credentials'
@@ -762,22 +783,22 @@ async function doSignIn() {
   }
   // Success handled by onAuthStateChange
 }
-
+ 
 async function doSignUp() {
   const name  = document.getElementById('suName').value.trim();
   const email = document.getElementById('suEmail').value.trim();
   const pass  = document.getElementById('suPass').value;
   if (!name || !email || !pass) { showAuthMsg('Please fill in all fields.'); return; }
   if (pass.length < 8) { showAuthMsg('Password must be at least 8 characters.'); return; }
-
+ 
   const btn = document.getElementById('signUpBtn');
   btn.disabled = true; btn.textContent = 'Creating account...';
-
+ 
   const { error } = await sb.auth.signUp({
     email, password: pass,
     options: { data: { full_name: name } }
   });
-
+ 
   if (error) {
     showAuthMsg(error.message);
     btn.disabled = false; btn.textContent = 'Create Account';
@@ -786,38 +807,38 @@ async function doSignUp() {
     btn.disabled = false; btn.textContent = 'Create Account';
   }
 }
-
+ 
 async function doMagicLink() {
   const email = document.getElementById('siEmail').value.trim();
   if (!email) { showAuthMsg('Enter your email first, then click magic link.'); return; }
-
+ 
   const { error } = await sb.auth.signInWithOtp({
     email,
     options: { emailRedirectTo: CONFIG.APP_URL }
   });
-
+ 
   if (error) showAuthMsg(error.message);
   else showAuthMsg(`Magic link sent to ${email} — check your inbox!`, 'success');
 }
-
+ 
 async function forgotPassword() {
   const email = document.getElementById('siEmail').value.trim();
   if (!email) { showAuthMsg('Enter your email first.'); return; }
-
+ 
   const { error } = await sb.auth.resetPasswordForEmail(email, {
     redirectTo: CONFIG.APP_URL + '?reset=true'
   });
-
+ 
   if (error) showAuthMsg(error.message);
   else showAuthMsg('Password reset email sent. Check your inbox.', 'success');
 }
-
+ 
 async function doSignOut() {
   await sb.auth.signOut();
   completedDays = [];
   showScreen('screenAuth');
 }
-
+ 
 // ─────────────────────────────────────────────────────────────────────────────
 // PROGRESS — load from Supabase
 // ─────────────────────────────────────────────────────────────────────────────
@@ -826,27 +847,27 @@ async function loadProgress() {
     .from('progress')
     .select('day_number')
     .eq('user_id', currentUser.id);
-
+ 
   if (!error && data) {
     completedDays = data.map(r => r.day_number);
   }
 }
-
+ 
 async function toggleDone(dayNum) {
   if (!currentUser) return;
-
+ 
   const btn = document.getElementById('doneBtn');
   if (btn) { btn.classList.add('saving'); btn.textContent = 'Saving...'; }
-
+ 
   const isNowDone = !completedDays.includes(dayNum);
-
+ 
   if (isNowDone) {
     const { error } = await sb.from('progress').upsert({
       user_id: currentUser.id,
       day_number: dayNum,
       completed_at: new Date().toISOString()
     }, { onConflict: 'user_id,day_number' });
-
+ 
     if (!error) {
       completedDays.push(dayNum);
       showToast('Day ' + dayNum + ' marked complete ✓', 'success');
@@ -857,30 +878,30 @@ async function toggleDone(dayNum) {
     const { error } = await sb.from('progress').delete()
       .eq('user_id', currentUser.id)
       .eq('day_number', dayNum);
-
+ 
     if (!error) {
       completedDays = completedDays.filter(d => d !== dayNum);
     } else {
       showToast('Could not update. Try again.', 'error');
     }
   }
-
+ 
   updateProgress();
   const card = document.getElementById('dc' + dayNum);
   if (card) card.classList.toggle('done', completedDays.includes(dayNum));
-
+ 
   if (btn) {
     btn.classList.remove('saving');
     btn.classList.toggle('done', completedDays.includes(dayNum));
     btn.innerHTML = completedDays.includes(dayNum) ? '&#10003; Completed' : 'Mark complete';
   }
-
+ 
   // Check if all 30 complete
   if (completedDays.length === 30) {
     setTimeout(() => showToast('🎉 All 30 days done! Claim your certificate below.', 'success'), 500);
   }
 }
-
+ 
 function updateProgress() {
   const total = completedDays.length;
   const pct = Math.round((total / 30) * 100);
@@ -897,7 +918,7 @@ function updateProgress() {
     if (wbEl) wbEl.textContent = wDone + '/' + wTotal;
   });
 }
-
+ 
 // ─────────────────────────────────────────────────────────────────────────────
 // RENDER
 // ─────────────────────────────────────────────────────────────────────────────
@@ -909,7 +930,7 @@ function showWeek(num) {
   const el = document.querySelector('.week-tabs');
   if (el) window.scrollTo({ top: el.offsetTop - 16, behavior: 'smooth' });
 }
-
+ 
 function renderWeek(num) {
   const w = weeks[num - 1];
   const html = `<div class="week-hdr"><h2>${w.title}</h2><p>${w.subtitle}</p></div>
@@ -925,7 +946,7 @@ function renderWeek(num) {
   </div>`;
   document.getElementById('weekContent').innerHTML = html;
 }
-
+ 
 function selectDay(dayNum) {
   const allDays = weeks.flatMap(w => w.days);
   const d = allDays.find(x => x.day === dayNum);
@@ -973,7 +994,7 @@ function selectDay(dayNum) {
     </div>`;
   detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
-
+ 
 function navDay(dir) {
   const allDays = weeks.flatMap(w => w.days);
   const idx = allDays.findIndex(x => x.day === selectedDay);
@@ -988,7 +1009,7 @@ function navDay(dir) {
   }
   selectDay(newDay.day);
 }
-
+ 
 function copyPrompt(dayNum) {
   const allDays = weeks.flatMap(w => w.days);
   const d = allDays.find(x => x.day === dayNum);
@@ -1014,13 +1035,13 @@ function fbCopy(text, cb) {
   catch (e) { cb('Error', '#DC2626', '#fff'); }
   document.body.removeChild(ta);
 }
-
+ 
 function closeDetail() {
   document.getElementById('dayDetail').classList.remove('show');
   document.querySelectorAll('.day-card').forEach(c => c.classList.remove('selected'));
   selectedDay = null;
 }
-
+ 
 // ─────────────────────────────────────────────────────────────────────────────
 // CERTIFICATE
 // ─────────────────────────────────────────────────────────────────────────────
@@ -1031,9 +1052,9 @@ async function checkCert() {
     showToast(`${r} day${r === 1 ? '' : 's'} remaining to unlock your certificate!`, 'default');
     return;
   }
-
+ 
   showToast('Generating your certificate...', 'default');
-
+ 
   const { data: { session } } = await sb.auth.getSession();
   const res = await fetch(`${CONFIG.SUPABASE_URL}/functions/v1/generate-certificate`, {
     method: 'POST',
@@ -1042,9 +1063,9 @@ async function checkCert() {
       'Content-Type': 'application/json'
     }
   });
-
+ 
   const result = await res.json();
-
+ 
   if (result.success) {
     showToast('Certificate generated! 🎉', 'success');
     setTimeout(() => {
@@ -1060,7 +1081,7 @@ async function checkCert() {
     showToast(result.message || 'Could not generate certificate.', 'error');
   }
 }
-
+ 
 // ─────────────────────────────────────────────────────────────────────────────
 // TOAST
 // ─────────────────────────────────────────────────────────────────────────────
@@ -1072,10 +1093,10 @@ function showToast(msg, type = 'default') {
   if (toastTimer) clearTimeout(toastTimer);
   toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
 }
-
+ 
 // ── BOOT ───────────────────────────────────────────────────────────────────
 boot();
 </script>
 </body>
 </html>
-
+ 
